@@ -40,7 +40,7 @@ XORG_MACROS_VERSION(1.8)
 XORG_DEFAULT_OPTIONS
 XORG_CHECK_MALLOC_ZERO
 
-# Obtain compiler/linker options for depedencies
+# Obtain compiler/linker options for dependencies
 PKG_CHECK_MODULES(XSCRNSAVER, x11 xext xextproto [scrnsaverproto >= 1.2])
 
 # Allow checking code with lint, sparse, etc.
