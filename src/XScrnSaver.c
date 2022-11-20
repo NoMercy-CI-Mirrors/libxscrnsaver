@@ -95,21 +95,21 @@ static Bool wire_to_event (
 
     switch ((event->u.u.type & 0x7f) - info->codes->first_event) {
     case ScreenSaverNotify:
-    	se = (XScreenSaverNotifyEvent *) re;
+	se = (XScreenSaverNotifyEvent *) re;
 	sevent = (xScreenSaverNotifyEvent *) event;
-    	se->type = sevent->type & 0x7f;
-    	se->serial = _XSetLastRequestRead(dpy,(xGenericReply *) event);
-    	se->send_event = (sevent->type & 0x80) != 0;
-    	se->display = dpy;
-    	se->window = sevent->window;
+	se->type = sevent->type & 0x7f;
+	se->serial = _XSetLastRequestRead(dpy,(xGenericReply *) event);
+	se->send_event = (sevent->type & 0x80) != 0;
+	se->display = dpy;
+	se->window = sevent->window;
 	se->root = sevent->root;
-    	se->state = sevent->state;
+	se->state = sevent->state;
 	se->kind = sevent->kind;
 	se->forced = True;
 	if (sevent->forced == xFalse)
 	    se->forced = False;
 	se->time = sevent->timestamp;
-    	return True;
+	return True;
     }
     return False;
 }
@@ -127,27 +127,27 @@ static Status event_to_wire (
 
     switch ((re->type & 0x7f) - info->codes->first_event) {
     case ScreenSaverNotify:
-    	se = (XScreenSaverNotifyEvent *) re;
+	se = (XScreenSaverNotifyEvent *) re;
 	sevent = (xScreenSaverNotifyEvent *) event;
-    	sevent->type = se->type | (se->send_event ? 0x80 : 0);
-    	sevent->sequenceNumber = se->serial & 0xffff;
-    	sevent->root = se->root;
-    	sevent->window = se->window;
-    	sevent->state = se->state;
+	sevent->type = se->type | (se->send_event ? 0x80 : 0);
+	sevent->sequenceNumber = se->serial & 0xffff;
+	sevent->root = se->root;
+	sevent->window = se->window;
+	sevent->state = se->state;
 	sevent->kind = se->kind;
 	sevent->forced = xFalse;
 	if (se->forced == True)
 	    sevent->forced = xTrue;
 	sevent->timestamp = se->time;
-    	return 1;
+	return 1;
     }
     return 0;
 }
 
 /****************************************************************************
- *                                                                          *
- *			    ScreenSaver public interfaces                         *
- *                                                                          *
+ *									    *
+ *			    ScreenSaver public interfaces		    *
+ *									    *
  ****************************************************************************/
 
 Bool XScreenSaverQueryExtension (
@@ -239,7 +239,7 @@ void XScreenSaverSelectInput (
     unsigned long	 mask)
 {
     XExtDisplayInfo *info = find_display (dpy);
-    register xScreenSaverSelectInputReq   *req;
+    register xScreenSaverSelectInputReq	  *req;
 
     ScreenSaverSimpleCheckExtension (dpy, info);
 
@@ -259,7 +259,7 @@ XScreenSaverProcessWindowAttributes (
     xChangeWindowAttributesReq		*req,
     register unsigned long		 valuemask,
     register XSetWindowAttributes	*attributes)
-    {
+{
     unsigned long values[32];
     register unsigned long *value = values;
     unsigned int nvalues;
@@ -268,34 +268,34 @@ XScreenSaverProcessWindowAttributes (
 	*value++ = attributes->background_pixmap;
 
     if (valuemask & CWBackPixel)
-    	*value++ = attributes->background_pixel;
+	*value++ = attributes->background_pixel;
 
     if (valuemask & CWBorderPixmap)
-    	*value++ = attributes->border_pixmap;
+	*value++ = attributes->border_pixmap;
 
     if (valuemask & CWBorderPixel)
-    	*value++ = attributes->border_pixel;
+	*value++ = attributes->border_pixel;
 
     if (valuemask & CWBitGravity)
-    	*value++ = attributes->bit_gravity;
+	*value++ = attributes->bit_gravity;
 
     if (valuemask & CWWinGravity)
 	*value++ = attributes->win_gravity;
 
     if (valuemask & CWBackingStore)
-        *value++ = attributes->backing_store;
+	*value++ = attributes->backing_store;
 
     if (valuemask & CWBackingPlanes)
 	*value++ = attributes->backing_planes;
 
     if (valuemask & CWBackingPixel)
-    	*value++ = attributes->backing_pixel;
+	*value++ = attributes->backing_pixel;
 
     if (valuemask & CWOverrideRedirect)
-    	*value++ = attributes->override_redirect;
+	*value++ = attributes->override_redirect;
 
     if (valuemask & CWSaveUnder)
-    	*value++ = attributes->save_under;
+	*value++ = attributes->save_under;
 
     if (valuemask & CWEventMask)
 	*value++ = attributes->event_mask;
@@ -314,7 +314,7 @@ XScreenSaverProcessWindowAttributes (
     nvalues <<= 2;			    /* watch out for macros... */
     Data32 (dpy, (long *) values, (long)nvalues);
 
-    }
+}
 
 void XScreenSaverSetAttributes (
     Display			*dpy,
@@ -353,7 +353,7 @@ void XScreenSaverSetAttributes (
 	req->visualID = visual->visualid;
     /* abuse an Xlib internal interface - is this legal for us? */
     if ((req->mask = valuemask))
-        XScreenSaverProcessWindowAttributes (dpy,
+	XScreenSaverProcessWindowAttributes (dpy,
 			(xChangeWindowAttributesReq *)req,
 			valuemask, attributes);
     UnlockDisplay (dpy);
@@ -467,4 +467,3 @@ XScreenSaverSuspend (Display *dpy, Bool suspend)
     UnlockDisplay (dpy);
     SyncHandle ();
 }
-

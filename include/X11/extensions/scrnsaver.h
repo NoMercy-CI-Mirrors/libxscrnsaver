@@ -126,7 +126,7 @@ extern Status XScreenSaverGetRegistered (
 
 extern void XScreenSaverSuspend (
     Display*	/* display */,
-    Bool 	/* suspend */
+    Bool	/* suspend */
 );
 
 _XFUNCPROTOEND
