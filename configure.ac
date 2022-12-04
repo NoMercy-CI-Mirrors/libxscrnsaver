@@ -22,8 +22,9 @@
 
 # Initialize Autoconf
 AC_PREREQ([2.60])
-AC_INIT([libXScrnSaver], [1.2.3],
-        [https://gitlab.freedesktop.org/xorg/lib/libXScrnSaver/issues], [libXScrnSaver])
+AC_INIT([libXScrnSaver], [1.2.4],
+        [https://gitlab.freedesktop.org/xorg/lib/libxscrnsaver/-/issues],
+        [libXScrnSaver])
 AC_CONFIG_SRCDIR([Makefile.am])
 AC_CONFIG_HEADERS([config.h])
 
