@@ -32,7 +32,7 @@
 project(
   'libXScrnSaver',
   'c',
-  version: '1.2.4',
+  version: '1.2.5',
   license: 'X11',
   license_files: 'COPYING',
   meson_version: '>= 1.1.0',
